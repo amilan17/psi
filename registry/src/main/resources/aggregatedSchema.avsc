@@ -1,0 +1,13 @@
+{"namespace": "org.cedar.psi.api",
+  "type": "record",
+  "name": "Granule",
+  "fields": [
+      {"name": "trackingId", "type": "string"},
+      {"name": "dataStream", "type": "string"},
+      {"name": "checksum", "type": "string","default":"null"},
+      {"name": "relativePath", "type": "string", "default":"null"},
+      {"name": "path", "type": "string","default":"null"},
+      {"name": "fileSize", "type": ["null","int"], "default":"null"},
+      {"name": "lastUpdated", "type": ["null","string"], "default":"null" }
+  ]
+}

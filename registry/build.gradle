@@ -4,6 +4,12 @@ apply plugin: 'org.springframework.boot' // version declared in top-level builds
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.cedar.dockerplugin'
 
+repositories {
+  maven {
+    url "http://packages.confluent.io/maven/"
+  }
+}
+
 dependencies {
   compile('org.codehaus.groovy:groovy')
   compile('org.codehaus.groovy:groovy-json')
@@ -11,16 +17,25 @@ dependencies {
   compile('org.springframework.boot:spring-boot-starter-web')
   compile('org.springframework.cloud:spring-cloud-starter')
   compile('org.apache.kafka:kafka-streams:1.0.0')
+  compile "org.apache.avro:avro:1.8.2"
+  compile 'io.confluent:kafka-streams-avro-serde:4.0.0'
+
 
   runtime('org.springframework.boot:spring-boot-devtools')
 
   providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 
   testCompile('org.springframework.boot:spring-boot-starter-test')
+  // https://mvnrepository.com/artifact/tech.allegro.schema.json2avro/converter
+  testCompile group: 'tech.allegro.schema.json2avro', name: 'converter', version: '0.2.4'
   testCompile("org.spockframework:spock-spring:${project.spockVersion}")
   testCompile("org.spockframework:spock-core:${project.spockVersion}")
   testCompile('org.codehaus.groovy.modules.http-builder:http-builder:0.7.1')
   testCompile('org.testcontainers:testcontainers:1.4.2')
+}
+
+configurations.all {
+  exclude group: 'org.slf4j', module: 'slf4j-log4j12'
 }
 
 war {
